@@ -1,0 +1,49 @@
+<h1>测试页面</h1>
+
+<h4 id="status"></h4>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var url, success_callback, error_back;
+
+        var url = 'index/check_status';
+
+        success_callback = function (data) {
+            if (data.status) {
+                window.location.href = 'http://zhangfortune.iteye.com/';
+            } else {
+                $("#status").html('waiting..');
+            }
+        };
+
+        error_back = function (data) {
+            console.log("error")
+        };
+
+        setInterval(function () {
+            Ajax(url, success_callback, error_back);
+        }, 3000);
+
+    });
+
+
+    function Ajax(url, success_callback, error_callback) {
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            method: 'post',
+
+            success: function (data) {
+                success_callback(data);
+            },
+
+            error: function (data) {
+                error_callback(data);
+            }
+        })
+    }
+
+
+</script>
